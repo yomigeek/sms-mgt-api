@@ -33,6 +33,24 @@ const createTable = () => {
    
           );
 
+          CREATE TABLE IF NOT EXISTS messages (
+   
+            id SERIAL,
+
+            messageid VARCHAR (255) PRIMARY KEY,
+                
+            message TEXT NOT NULL,
+ 
+            status VARCHAR (255) NOT NULL,
+            
+            senderid VARCHAR (255) REFERENCES users(userid),
+
+            receiverid VARCHAR (255) REFERENCES users(userid),
+            
+            createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+ 
+        );
+
       `;
 
   clientString.query(query, (err) => {
