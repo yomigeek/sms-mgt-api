@@ -35,6 +35,48 @@ class AuthController {
       }
     );
   }
+
+  static userLogin(req, res) {
+    const { password, phone } = req.body;
+    const formattedPhone = phone.trim();
+    connect.query(
+      `SELECT userid, phone, password, role FROM users WHERE phone='${formattedPhone}'`,
+      (err, response) => {
+        const result = JSON.parse(JSON.stringify(response.rows));
+        if (response.rows.length > 0) {
+          const passwordIsValid = bcrypt.compareSync(
+            password,
+            result[0].password
+          );
+          const tokenData = {
+            userId: result[0].userid,
+            phone: result[0].phone,
+            role: result[0].role,
+            expiryTime: "4320h"
+          };
+          if (passwordIsValid) {
+            return res.status(200).json({
+              status: "success",
+              statusCode: 200,
+              message: "Login successful",
+              token: TokenUtils.generateToken(tokenData),
+            });
+          }
+          return AuthController.loginError(res);
+        }
+        return AuthController.loginError(res);
+      }
+    );
+  }
+
+  static loginError(res) {
+    return res.status(401).json({
+      status: "error",
+      statusCode: 401,
+      message: "Invalid Phone Number or Password"
+    });
+  }
+
 }
 
 export default AuthController;
