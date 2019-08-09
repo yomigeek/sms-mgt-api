@@ -21,6 +21,24 @@ class UserValidation {
     });
   }
 
+
+  static loginValidation(req, res, next) {
+    const loginInfo = {
+      phone: "required|digits:11",
+      password: "required"
+    };
+    const validator = new Validator(req.body, loginInfo);
+    validator.passes(() => next());
+    validator.fails(() => {
+      const errors = validator.errors.all();
+      return res.status(400).json({
+        status: "error",
+        statusCode: 400,
+        errors
+      });
+    });
+  }
+
 }
 
 export default UserValidation;
