@@ -11,7 +11,7 @@ class MessageController {
 
     connect.query(
       `${"insert into messages (messageid, message, status, senderid, receiverid) " +
-      "values ('"}${messageId}', '${formattedMessage}' , 'sent', '${senderId}','${receiverId}')`,
+      "values ('"}${messageId}', '${formattedMessage}' , 'received', '${senderId}','${receiverId}')`,
       (err, response) => {
         if (err) {
           throw err.message;
@@ -38,14 +38,14 @@ class MessageController {
           return res.status(200).json({
             status: "success",
             statusCode: 200,
-            result,
+            messages: result,
           });
         }
         else {
           return res.status(404).json({
             status: "not found",
             statusCode: 404,
-            message: "You have not message in your inbox",
+            message: "You have no message(s) in your inbox",
           });
         }
       }

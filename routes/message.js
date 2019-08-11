@@ -19,10 +19,7 @@ messageRouter.post(
 messageRouter.get(
   '/inbox',
   TokenUtils.verifyToken,
-  MessageValidation.sendValidation,
-  CheckConflicts.checkReceiver,
-  GetUserInfo.byPhone,
-  MessageController.send
+  MessageController.inbox,
 );
 
 
