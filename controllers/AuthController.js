@@ -69,6 +69,26 @@ class AuthController {
     );
   }
 
+
+  static delete(req, res) {
+    const { phone } = req.params;
+    connect.query(
+      `
+      DELETE FROM users WHERE phone = '${phone}'`,
+      (err, response) => {
+        if (err) {
+          throw err.message;
+        }
+        return res.status(200).json({
+          status: "success",
+          statusCode: 200,
+          message: "contact deleted successfully",
+        });
+      }
+    );
+  }
+
+
   static loginError(res) {
     return res.status(401).json({
       status: "error",
@@ -76,6 +96,7 @@ class AuthController {
       message: "Invalid Phone Number or Password"
     });
   }
+
 
 }
 

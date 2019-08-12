@@ -11,6 +11,7 @@ messageRouter.post(
   '/send',
   TokenUtils.verifyToken,
   MessageValidation.sendValidation,
+  CheckConflicts.checkUser,
   CheckConflicts.checkReceiver,
   GetUserInfo.byPhone,
   MessageController.send
@@ -19,12 +20,14 @@ messageRouter.post(
 messageRouter.get(
   '/inbox',
   TokenUtils.verifyToken,
+  CheckConflicts.checkUser,
   MessageController.inbox,
 );
 
 messageRouter.get(
   '/outbox',
   TokenUtils.verifyToken,
+  CheckConflicts.checkUser,
   MessageController.outbox,
 );
 
