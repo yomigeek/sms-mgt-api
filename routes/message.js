@@ -16,5 +16,11 @@ messageRouter.post(
   MessageController.send
 );
 
+messageRouter.get(
+  '/inbox',
+  TokenUtils.verifyToken,
+  MessageController.inbox,
+);
+
 
 export default messageRouter;
