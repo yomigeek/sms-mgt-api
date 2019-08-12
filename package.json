@@ -61,8 +61,6 @@
     "pretty-quick": "^1.10.0",
     "request": "^2.86.0",
     "rimraf": "^2.6.2",
-    "should": "^13.2.1",
-    "webpack": "^4.35.2",
-    "webpack-cli": "^3.3.5"
+    "should": "^13.2.1"
   }
 }

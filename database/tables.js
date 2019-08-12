@@ -43,9 +43,9 @@ const createTable = () => {
  
             status VARCHAR (255) NOT NULL,
             
-            senderid VARCHAR (255) REFERENCES users(userid),
+            senderid VARCHAR (255) REFERENCES users(userid) ON DELETE CASCADE,
 
-            receiverid VARCHAR (255) REFERENCES users(userid),
+            receiverid VARCHAR (255) REFERENCES users(userid) ON DELETE CASCADE,
             
             createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
  
