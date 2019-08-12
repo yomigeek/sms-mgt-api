@@ -51,6 +51,35 @@ class MessageController {
       }
     );
   }
+
+  static outbox(req, res) {
+    const userId = req.decoded.userId;
+    connect.query(
+      `SELECT messageid, message, status, users.firstname, users.lastname, users.phone 
+      FROM messages
+      INNER JOIN users ON messages.senderid = users.userid
+      WHERE senderid = '${userId}'`,
+      (err, response) => {
+        const result = JSON.parse(JSON.stringify(response.rows));
+        if (result.length > 0) {
+          return res.status(200).json({
+            status: "success",
+            statusCode: 200,
+            messages: result,
+          });
+        }
+        else {
+          return res.status(404).json({
+            status: "not found",
+            statusCode: 404,
+            message: "You have no message(s) in your outbox",
+          });
+        }
+      }
+    );
+  }
+
+
 }
 
 export default MessageController;
