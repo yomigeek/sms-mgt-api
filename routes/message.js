@@ -22,5 +22,11 @@ messageRouter.get(
   MessageController.inbox,
 );
 
+messageRouter.get(
+  '/outbox',
+  TokenUtils.verifyToken,
+  MessageController.outbox,
+);
+
 
 export default messageRouter;
