@@ -18,4 +18,10 @@ authRouter.post(
   AuthController.userLogin
 );
 
+authRouter.post(
+  "/delete/:phone",  
+  CheckConflicts.checkUserByPhone,
+  AuthController.delete
+);
+
 export default authRouter;
